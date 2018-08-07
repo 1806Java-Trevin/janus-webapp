@@ -159,12 +159,13 @@ import { QuestionComponent } from './settings/screening/question/question.compon
 import { CategoryFilterPipe } from './settings/screening/categories/categories.filter';
 import { PDFService } from './services/pdf.service';
 import { ReportingService } from './services/reporting.service';
-import {CategoryService} from "./services/category/category.service";
+import { CategoryService } from './services/category/category.service';
 import { CategoryWeightsService } from './settings/screening/services/weight.service';
-//import {QuestionService} from "./settings/screening/services/question.service";
+import { EmailSchedulerComponent } from './settings/email-scheduler/email-scheduler.component';
+// import {QuestionService} from "./settings/screening/services/question.service";
 
 import 'rxjs/add/operator/do';
-import {CandidateService} from "./screening/services/candidate/candidate.service";
+import { CandidateService } from './screening/services/candidate/candidate.service';
 
 @NgModule({
   imports: [
@@ -290,7 +291,8 @@ import {CandidateService} from "./screening/services/candidate/candidate.service
     CategoriesComponent,
     QuestionComponent,
     ScreeningComponent,
-    BucketsComponent
+    BucketsComponent,
+    EmailSchedulerComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: SpringInterceptor, multi: true },  // interceptor for all HTTP requests
