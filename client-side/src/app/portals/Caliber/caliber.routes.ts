@@ -24,6 +24,7 @@ import { ScreeningConfigComponent } from './settings/screening/screening.compone
 import { Component } from '@angular/core';
 import { BucketComponent } from './settings/screening/bucket/bucket.component';
 import { CategoriesComponent } from './settings/screening/categories/categories.component';
+import { EmailSchedulerComponent } from './settings/email-scheduler/email-scheduler.component';
 
 export const routes: Routes = [
   {
@@ -116,6 +117,10 @@ export const routes: Routes = [
           roles: [roles.panelRole, roles.qcRole, roles.stagingRole, roles.trainerRole, roles.vpRole]
         },
         children: [
+          {
+            path: 'email-scheduler',
+            component: EmailSchedulerComponent
+          },
           {
             path: 'skills',
             component: SkillsComponent
