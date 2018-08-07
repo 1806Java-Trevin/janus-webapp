@@ -6,6 +6,7 @@ export class EmailService {
 
   private _TRAINER_GRADE_REMINDER = 'trainerGradeReminder';
   private _VP_BATCH_STATUS_REPORT = 'vpBatchStatusReport';
+  trainer: any = {};
 
   constructor(private httpClient: HttpClient) { }
 
