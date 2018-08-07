@@ -16,8 +16,24 @@
         <span style="margin-left: 20px">
           <ngb-timepicker [(ngModel)]="time" name="Time"></ngb-timepicker>
         </span>
-        <button class="btn btn-primary" (click)="startSchedule()" type="button">Submit</button>
       </div>
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{ interval }}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+              <button *ngFor = "let option of intervalOptions; let i = index" class="dropdown-item" (click)="chooseInterval(i)">{{option}}</button>
+            </div>
+          </div>
+          <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{ emailTypeDisplay }}</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+                <button *ngFor = "let option of emailOptions; let i = index" class="dropdown-item" (click)="chooseType(i)">{{option}}</button>
+              </div>
+            </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="startSchedule()" type="button">Submit</button>
     </form>
   </div>
 </div>
