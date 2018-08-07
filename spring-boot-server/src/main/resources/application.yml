@@ -6,3 +6,5 @@ spring:
 #Server configuration
 server:
   port: 8088
+
+ 
