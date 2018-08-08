@@ -3,13 +3,13 @@ import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class UrlService {
-  //public readonly context: string =  environment.localhostContext;
-  //public readonly context: string =  environment.gambitContext;
-  public readonly context : string = environment.caliberContext;
+  // public readonly context: string =  environment.localhostContext;
+  // public readonly context: string =  environment.gambitContext;
+  public readonly context: string = environment.caliberContext;
 
-  //services
-  public readonly techScreening : string = "/tech-screening";
-  public readonly adminScreening : string = "/screening-admin";
+  // services
+  public readonly techScreening: string = '/tech-screening';
+  public readonly adminScreening: string = '/screening-admin';
 
   apiCurrentBatchesLineChart = this.context + 'all/reports/dashboard';
 
@@ -96,7 +96,7 @@ export class UrlService {
   bucket = {
     getAllBuckets: () => `${this.context + this.bucketEndpoint}`,
     getBucketById: (bucketId: number) => `${this.context + this.bucketEndpoint}/${bucketId}`,
-    updateBucket: (bucketId : number) => `${this.context + this.bucketEndpoint}/${bucketId}`,
+    updateBucket: (bucketId: number) => `${this.context + this.bucketEndpoint}/${bucketId}`,
     createNewBucket: () => `${this.context + this.bucketEndpoint}`,
     deleteBucket: (bucketId: number) => `${this.context + this.bucketEndpoint}/${bucketId}`
   };
@@ -130,26 +130,26 @@ export class UrlService {
 
   candidate = {
     getAll: () => `${this.context}/candidate`,
-    getById: (id : number) => `${this.context}/candidate/${id}`,
-    update: (id : number) => `${this.context}/candidate/${id}`,
+    getById: (id: number) => `${this.context}/candidate/${id}`,
+    update: (id: number) => `${this.context}/candidate/${id}`,
     create: () => `${this.context}/candidate`,
     delete: (id: number) => `${this.context}candidate/${id}`,
   };
 
   private categoryEndpoint = `${this.adminScreening}/category`;
   category = {
-    fetchAll: () => { console.log("context: %s, endpoint %s", this.context, this.categoryEndpoint);
-    return `${this.context}${this.categoryEndpoint}`},
-    //fetchAllActive: () => `${this.context}category/all`,
+    fetchAll: () => { console.log('context: %s, endpoint %s', this.context, this.categoryEndpoint);
+    return `${this.context}${this.categoryEndpoint}`; },
+    // fetchAllActive: () => `${this.context}category/all`,
     fetchById: (id: number) => `${this.context}${this.categoryEndpoint}/${id}`,
     save: () => `${this.context}${this.categoryEndpoint}`,
     update: () => `${this.context}${this.categoryEndpoint}/update`,
-    //update: () => `${this.context}/category/update`,
+    // update: () => `${this.context}/category/update`,
 
     createCategory: () => `${this.context}${this.categoryEndpoint}`,
     getCategories: () => `${this.context}${this.categoryEndpoint}`,
     getCategoryById: (id: number) => `${this.context}${this.categoryEndpoint}/${id}`,
-    updateCategory: (id:number) => `${this.context}${this.categoryEndpoint}/${id}`,
+    updateCategory: (id: number) => `${this.context}${this.categoryEndpoint}/${id}`,
     deleteCategory: (id: number) => `${this.context}${this.categoryEndpoint}/${id}`,
   };
 
@@ -229,7 +229,7 @@ export class UrlService {
   private questionEndpoint = `${this.context}${this.adminScreening}/question`;
   question = {
     postQuestion: () => `${this.questionEndpoint}`,
-    putQuestion: (questionId : number) => `${this.questionEndpoint}/${questionId}`,
+    putQuestion: (questionId: number) => `${this.questionEndpoint}/${questionId}`,
     getQuestionsByBucketId: (bucketId: number) => `${this.context}${this.adminScreening}/bucket/${bucketId}/question`,
     // Tyerra Smith added a url to get ALL questions
     getQuestions: () => `${this.questionEndpoint}`,
@@ -239,11 +239,11 @@ export class UrlService {
     deleteQuestion: (questionId: number) => `${this.questionEndpoint}/${questionId}`,
   };
 
-  //private questionScoringEndpoint = 'question-score-service/question';
+  // private questionScoringEndpoint = 'question-score-service/question';
   private questionScoringEndpoint = `${this.techScreening}/question`;
   questionScoring = {
     scoringQuestion: () => `${this.context + this.questionScoringEndpoint}/score`,
-    getQuestionScore: (screeningId : number) => `${this.context + this.questionEndpoint}/score/${screeningId}`
+    getQuestionScore: (screeningId: number) => `${this.context + this.questionEndpoint}/score/${screeningId}`
   };
 
     // Reports Service API endpoints
@@ -278,7 +278,7 @@ export class UrlService {
    * @author Pedro De Los Reyes | 1803-USF-MAR26 | Wezley Singleton
    */
   private screeningEndpoint = `${this.techScreening}/screening`;
-  //screeningEndpoint = 'screening-service/screening';
+  // screeningEndpoint = 'screening-service/screening';
   screening = {
     scheduleScreening: () => `${this.context + this.screeningEndpoint}/scheduled`,
     startScreening: () => `${this.context + this.screeningEndpoint}/start`,
@@ -319,7 +319,7 @@ export class UrlService {
 
   /**
    * Endpoints for skillType
-   * 
+   *
    * @author John Lacap | 1805-May-29 | WVU | Richard Orr
    */
 
@@ -339,12 +339,13 @@ export class UrlService {
 
 
 
-    getBucketBySkillType: (skillTypeId: number, categoryId: number) => `${this.skillTypesServiceEndpoint}/${skillTypeId}/category/${categoryId}/weight`,
+    getBucketBySkillType: (skillTypeId: number, categoryId: number) =>
+      `${this.skillTypesServiceEndpoint}/${skillTypeId}/category/${categoryId}/weight`,
 
     createSkillType: () => `${this.skillTypesServiceEndpoint}`,
     updateSkillType: (skillTypeId: number) => `${this.skillTypesServiceEndpoint}/${skillTypeId}`,
     getSkillTypes: () => `${this.skillTypesServiceEndpoint}`,
-    deleteSkillType:(id: number) => `${this.skillTypesServiceEndpoint}/${id}`,
+    deleteSkillType: (id: number) => `${this.skillTypesServiceEndpoint}/${id}`,
     getSkillTypeById: (skillTypeId: number) => `${this.skillTypesServiceEndpoint}/${skillTypeId}`,
 
     updateSkillTypeBuckets: () => `${this.skillTypesServiceEndpoint}/updateSkillTypeBucket`,
@@ -457,79 +458,82 @@ export class UrlService {
 
   /**
    * Endpoints for category weights:
-   * 
+   *
    * @author John Lacap | 1805-May-29 | WVU | Richard Orr
    */
   private weightsServiceEndpoint = this.context + this.adminScreening;
-  weight={
+  weight= {
     createWeight: () => `${this.weightsServiceEndpoint}/weight`,
     getWeights: () => `${this.weightsServiceEndpoint}/weight`,
-    getWeightByIds: (skillTypeId: number, categoryId: number) => `${this.weightsServiceEndpoint}/skilltype/${skillTypeId}/category/${categoryId}/weight`,
-    updateWeight: (skillTypeId: number, categoryId: number) => `${this.weightsServiceEndpoint}/skilltype/${skillTypeId}/category/${categoryId}/weight`,
-    deleteWeight: (skillTypeId: number, categoryId: number) => `${this.weightsServiceEndpoint}/skilltype/${skillTypeId}/category/${categoryId}/weight`,
+    getWeightByIds: (skillTypeId: number, categoryId: number) =>
+      `${this.weightsServiceEndpoint}/skilltype/${skillTypeId}/category/${categoryId}/weight`,
+    updateWeight: (skillTypeId: number, categoryId: number) =>
+      `${this.weightsServiceEndpoint}/skilltype/${skillTypeId}/category/${categoryId}/weight`,
+    deleteWeight: (skillTypeId: number, categoryId: number) =>
+      `${this.weightsServiceEndpoint}/skilltype/${skillTypeId}/category/${categoryId}/weight`,
   };
 
   /* Reporting service API endpoints */
   apiBatchComparisonAvgEndpoint = (skill: string, training: string, startDate) =>
-    environment.context + `/all/reports/compare/skill/${skill}/training/${training}/date/${startDate}`;
+    environment.context + `/all/reports/compare/skill/${skill}/training/${training}/date/${startDate}`
 
   apifetchBatchWeekPieChart = (batchId: Number, weekId: Number) =>
-    environment.context + `all/reports/batch/${batchId}/week/${weekId}/pie`;
+    environment.context + `all/reports/batch/${batchId}/week/${weekId}/pie`
 
   apiPieChartCurrentWeekQCStatus = (batchId: Number) =>
-    environment.context + `all/reports/batch/${batchId}/pie`;
+    environment.context + `all/reports/batch/${batchId}/pie`
 
   apiAllBatchesCurrentWeekQCStackedBarChart = (batchId: Number, week: Number) =>
-    environment.context + `all/reports/batch/${batchId}/week/${week}/bar-batch-week-avg`;
+    environment.context + `all/reports/batch/${batchId}/week/${week}/bar-batch-week-avg`
 
   apiBatchWeekAvgBarChart = (batchId: Number, week: Number) =>
-    environment.context + `all/reports/batch/${batchId}/week/${week}/bar-batch-week-avg`;
+    environment.context + `all/reports/batch/${batchId}/week/${week}/bar-batch-week-avg`
 
   apiBatchWeekSortedBarChart = (batchId: Number, week: Number) =>
-    environment.context + `all/reports/batch/${batchId}/week/${week}/bar-batch-weekly-sorted`;
+    environment.context + `all/reports/batch/${batchId}/week/${week}/bar-batch-weekly-sorted`
 
   apiBatchOverallTraineeBarChart = (batchId: Number, traineeId: Number) =>
-    environment.context + `all/reports/batch/${batchId}/overall/trainee/${traineeId}/bar-batch-overall-trainee`;
+    environment.context + `all/reports/batch/${batchId}/overall/trainee/${traineeId}/bar-batch-overall-trainee`
 
   apiBatchOverallBarChart = (batchId: Number) =>
-    environment.context + `all/reports/batch/${batchId}/overall/bar-batch-overall`;
+    environment.context + `all/reports/batch/${batchId}/overall/bar-batch-overall`
 
   apiBatchWeekTraineeBarChart = (batchId: Number, weekId: Number, traineeId: Number) =>
-    environment.context + `all/reports/batch/${batchId}/week/${weekId}/trainee/${traineeId}/bar-batch-week-trainee`;
+    environment.context + `all/reports/batch/${batchId}/week/${weekId}/trainee/${traineeId}/bar-batch-week-trainee`
 
   apiTraineeUpToWeekLineChart = (batchId: Number, weekId: Number, traineeId: Number) =>
-    environment.context + `all/reports/batch/${batchId}/week/${weekId}/trainee/${traineeId}/line-trainee-up-to-week`;
+    environment.context + `all/reports/batch/${batchId}/week/${weekId}/trainee/${traineeId}/line-trainee-up-to-week`
 
   apiTraineeOverallLineChart = (batchId: Number, traineeId: Number) =>
-    environment.context + `all/reports/batch/${batchId}/overall/trainee/${traineeId}/line-trainee-overall`;
+    environment.context + `all/reports/batch/${batchId}/overall/trainee/${traineeId}/line-trainee-overall`
 
   apiBatchOverallLineChart = (batchId: Number) =>
-    environment.context + `all/reports/batch/${batchId}/overall/line-batch-overall`;
+    environment.context + `all/reports/batch/${batchId}/overall/line-batch-overall`
 
   apiTraineeUpToWeekRadarChart = (week: Number, traineeId: Number) =>
-    environment.context + `all/reports/week/${week}/trainee/${traineeId}/radar-trainee-up-to-week`;
+    environment.context + `all/reports/week/${week}/trainee/${traineeId}/radar-trainee-up-to-week`
 
   apiTraineeOverallRadarChart =  (traineeId: Number) =>
-    environment.context + `all/reports/trainee/${traineeId}/radar-trainee-overall`;
+    environment.context + `all/reports/trainee/${traineeId}/radar-trainee-overall`
 
   apiBatchOverallRadarChart = (batchId: Number) =>
-    environment.context + `all/reports/batch/${batchId}/overall/radar-batch-overall`;
+    environment.context + `all/reports/batch/${batchId}/overall/radar-batch-overall`
 
   apiBatchAllTraineesRadarChart = (batchId: Number) =>
-    environment.context + `all/reports/batch/${batchId}/radar-batch-all-trainees`;
+    environment.context + `all/reports/batch/${batchId}/radar-batch-all-trainees`
 
   apiBatchWeekAverageValue = (batchId: Number, weekId: Number) =>
-    environment.context + `all/assessments/average/${batchId}/${weekId}`;
+    environment.context + `all/assessments/average/${batchId}/${weekId}`
 
   apiTechnologiesForTheWeek = (batchId: Number, weekId: Number) =>
-    environment.context + `all/assessments/categories/batch/${batchId}/week/${weekId}`;
+    environment.context + `all/assessments/categories/batch/${batchId}/week/${weekId}`
 
   apiPanelBatchAllTrainees = (batchId: Number) =>
-    environment.context + `all/reports/batch/${batchId}/panel-batch-all-trainees`;
+    environment.context + `all/reports/batch/${batchId}/panel-batch-all-trainees`
 
   /* Evaluation service API endpoints */
   apiFetchAllQCTraineeNotes = (batchId: Number, weekId: Number) =>
-    environment.context + `qc/note/trainee/${batchId}/${weekId}`;
+    environment.context + `qc/note/trainee/${batchId}/${weekId}`
 
   apiFetchAllQCBatchNotes = (batchId: Number, weekId: Number) =>
     environment.context + `qc/note/batch/${batchId}/${weekId}`
