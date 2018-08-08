@@ -11,6 +11,12 @@ import { EmailService } from '../../services/email.service';
 })
 export class EmailSchedulerComponent implements OnInit {
 
+  performanceReportTrainers;
+  gradeReminderTrainers;
+  performanceReportSchedule;
+  gradeReminderSchedule;
+
+  intervalIndex: number;
   emailTypeDisplay: string;
   delay: number;
   date: any;
@@ -18,7 +24,8 @@ export class EmailSchedulerComponent implements OnInit {
 
   interval: string;
   intervalSeconds = 0;
-  intervalOptions = ['1 Day', '3 Day', '1 Week', '10 seconds', 'Clear'];
+  intervalQuantity = 0;
+  intervalOptions = ['Minutes', 'Hours', 'Days', 'Weeks'];
   emailOptions = ['Grade Reminder', 'Performance Report'];
   // the below comment could be used to simplify the switch in chooseInterval()
   // doesn't really work with the 10 second demo option
@@ -32,6 +39,7 @@ export class EmailSchedulerComponent implements OnInit {
   }
 
   startSchedule() {
+    this.calculateSeconds();
     const now = new Date();
     const start = new Date(this.date.year, this.date.month - 1, this.date.day, this.time.hour, this.time.minute, 0, 0);
     this.delay = (start.getTime() - now.getTime()) / 1000;
@@ -39,49 +47,75 @@ export class EmailSchedulerComponent implements OnInit {
     let emailType;
     if (this.emailTypeDisplay === 'Performance Report') {
       emailType = this.emailService.VP_BATCH_STATUS_REPORT;
-    }else {
+    } else {
       emailType = this.emailService.TRAINER_GRADE_REMINDER;
     }
+    console.log('type: ' + emailType);
+    console.log('seconds: ' + this.intervalSeconds);
+    console.log('delay: ' + this.delay);
 
-    this.emailService.sendEmail(emailType, this.intervalSeconds, this.delay);
+    this.emailService.startSchedule(emailType, this.intervalSeconds, this.delay).subscribe(data => {
+      // this.emailService.getSchedule(this.emailService.TRAINER_GRADE_REMINDER).subscribe(data2 => {
+      //   this.gradeReminderSchedule = data2;
+      //   console.log(this.gradeReminderSchedule);
+      // });
+      // this.emailService.getSchedule(this.emailService.VP_BATCH_STATUS_REPORT).subscribe(data2 => {
+      //   this.performanceReportSchedule = data2;
+      //   console.log(this.performanceReportSchedule);
+      // });
+      console.log(data);
+      if (emailType === this.emailService.VP_BATCH_STATUS_REPORT) {
+        this.performanceReportSchedule = data;
+      } else if (emailType === this.emailService.TRAINER_GRADE_REMINDER) {
+        this.gradeReminderSchedule = data;
+      }
+    });
+    this.intervalQuantity = 0;
   }
 
   chooseInterval(item) {
-    // seconds in a day
-    const secondsInDay = 24 * 60 * 60;
-    switch (item) {
-      case 0:
-        // one day interval
-        this.intervalSeconds = secondsInDay;
-        break;
-      case 1:
-        // 3 day interval
-        this.intervalSeconds = 3 * secondsInDay;
-        break;
-      case 2:
-        // 1 week interval
-        this.intervalSeconds = 7 * secondsInDay;
-        break;
-      case 3:
-        // sets interval to 10 seconds for demo purposes
-        this.intervalSeconds = 10;
-        break;
-      case 4:
-        // sets interval to 0 and cancels the service
-        this.intervalSeconds = 0;
-        break;
-      default:
-        break;
-    }
-
-    console.log(item);
+    this.interval = this.intervalOptions[item];
+    this.intervalIndex = item;
   }
 
   chooseType(type) {
     this.emailTypeDisplay = this.emailOptions[type];
   }
 
+  calculateSeconds() {
+    switch (this.intervalIndex) {
+      case 0:
+        this.intervalSeconds = this.intervalQuantity * 60;
+        break;
+      case 1:
+        this.intervalSeconds = this.intervalQuantity * 60 * 60;
+        break;
+      case 2:
+        this.intervalSeconds = this.intervalQuantity * 60 * 60 * 24;
+        break;
+      case 3:
+        this.intervalSeconds = this.intervalQuantity * 60 * 60 * 24 * 7;
+        break;
+      default:
+        break;
+    }
+
+  }
+
+
   ngOnInit() {
+    this.emailService.getTrainers(this.emailService.TRAINER_GRADE_REMINDER).subscribe(data => {
+      this.gradeReminderTrainers = data;
+    });
+    this.emailService.getTrainers(this.emailService.VP_BATCH_STATUS_REPORT).subscribe(data => {
+      this.performanceReportTrainers = data;
+    });
+    this.emailService.getSchedule(this.emailService.TRAINER_GRADE_REMINDER).subscribe(data => {
+      this.gradeReminderSchedule = data;
+    });
+    this.emailService.getSchedule(this.emailService.VP_BATCH_STATUS_REPORT).subscribe(data => {
+      this.performanceReportSchedule = data;
+    });
   }
 
 }

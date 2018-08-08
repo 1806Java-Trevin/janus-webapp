@@ -20,20 +20,88 @@
       <div class="row">
         <div class="col">
           <div ngbDropdown class="d-inline-block">
+            <input [(ngModel)]="intervalQuantity" type="number" name="intervalValue" />
             <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{ interval }}</button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
-              <button *ngFor = "let option of intervalOptions; let i = index" class="dropdown-item" (click)="chooseInterval(i)">{{option}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button *ngFor="let option of intervalOptions; let i = index" class="dropdown-item" (click)="chooseInterval(i)">{{option}}</button>
             </div>
           </div>
           <div ngbDropdown class="d-inline-block">
-              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{ emailTypeDisplay }}</button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
-                <button *ngFor = "let option of emailOptions; let i = index" class="dropdown-item" (click)="chooseType(i)">{{option}}</button>
-              </div>
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{ emailTypeDisplay }}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button *ngFor="let option of emailOptions; let i = index" class="dropdown-item" (click)="chooseType(i)">{{option}}</button>
             </div>
+          </div>
         </div>
       </div>
       <button class="btn btn-primary" (click)="startSchedule()" type="button">Submit</button>
     </form>
   </div>
 </div>
+
+
+<div *ngIf="gradeReminderSchedule">
+    <h3>grade schedule</h3>
+  <li> delay: {{gradeReminderSchedule.delay}}</li>
+  <li> interval: {{gradeReminderSchedule.interval}}</li>
+</div>
+
+<div *ngIf="performanceReportSchedule">
+    <h3> performance schedule</h3>
+  <li> delay: {{performanceReportSchedule.delay }}</li>
+  <li> interval: {{performanceReportSchedule.interval}}</li>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="panelborder">
+        <h3 class="h3"> VP</h3>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Id</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let performanceTrainer of performanceReportTrainers">
+              <td>{{performanceTrainer.name}}</td>
+              <td>{{performanceTrainer.email}}</td>
+              <td>{{performanceTrainer.trainerId}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col">
+      <div class="panelborder">
+          <h3 class="h3">Trainer</h3>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Id</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let gradeTrainer of gradeReminderTrainers">
+                <td>{{gradeTrainer.name}}</td>
+                <td>{{gradeTrainer.email}}</td>
+                <td>{{gradeTrainer.trainerId}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
