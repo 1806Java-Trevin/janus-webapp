@@ -1,22 +1,26 @@
 <div class="container">
   <div class="test">
     <br>
+    <h1>Start Date and Time</h1>
 
-    <form class="form-inline">
-      <div class="form-group">
+    <form>
+      <div>
+        <h4>Select Starting Date</h4>
         <div class="input-group">
-          <h2>Start Date and Time</h2>
-          <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" name="Date">
+          <input class="form-control"  [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" name="Date" />
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
               <img src="assets/Calendar-1.png" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
             </button>
           </div>
         </div>
-        <span style="margin-left: 20px">
+        <br>
+        <h4>Select Starting Time(24-hours standard)</h4>
+        <div>
           <ngb-timepicker [(ngModel)]="time" name="Time"></ngb-timepicker>
-        </span>
+        </div>
       </div>
+      <h4>Select Interval You Would Like To Receive Emails</h4>
       <div class="row">
         <div class="col">
           <div ngbDropdown class="d-inline-block">
@@ -39,23 +43,27 @@
   </div>
 </div>
 
+<div class="row container center">
+  <div class="col align-self-start" *ngIf="gradeReminderSchedule" id="intervalDiv">
+    <h3>Grade Schedule</h3>
+    <li> Time Until Next Email: {{ gradeReminderSchedule.delay | convertTime }}</li>
+    <li> Scheduled Interval: {{gradeReminderSchedule.interval | convertInterval}}</li>
+    <button class="btn btn-primary" (click)="cancelGrade()" type ="button">Cancel Scheduled</button>
+  </div>
 
-<div *ngIf="gradeReminderSchedule">
-    <h3>grade schedule</h3>
-  <li> delay: {{gradeReminderSchedule.delay}}</li>
-  <li> interval: {{gradeReminderSchedule.interval}}</li>
+  <div class="col align-self-end" *ngIf="performanceReportSchedule" id="intervalDiv">
+    <h3> Performance Schedule</h3>
+    <li> Time Until Next Email: {{performanceReportSchedule.delay | convertTime}}</li>
+    <li> Scheduled Interval: {{performanceReportSchedule.interval | convertInterval}}</li>
+    <button class="btn btn-primary" (click)="cancelPerformance()" type ="button">Cancel Scheduled</button>
+  </div>
 </div>
 
-<div *ngIf="performanceReportSchedule">
-    <h3> performance schedule</h3>
-  <li> delay: {{performanceReportSchedule.delay }}</li>
-  <li> interval: {{performanceReportSchedule.interval}}</li>
-</div>
-
+<br>
 <div class="row">
   <div class="col">
     <div class="panelborder">
-        <h3 class="h3"> VP</h3>
+      <h3 class="h3">Vice Presidents</h3>
       <div class="table-responsive">
         <table class="table">
           <thead>
@@ -79,29 +87,27 @@
 </div>
 
 <div class="row">
-    <div class="col">
-      <div class="panelborder">
-          <h3 class="h3">Trainer</h3>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Id</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let gradeTrainer of gradeReminderTrainers">
-                <td>{{gradeTrainer.name}}</td>
-                <td>{{gradeTrainer.email}}</td>
-                <td>{{gradeTrainer.trainerId}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <div class="col">
+    <div class="panelborder">
+      <h3 class="h3">Trainer</h3>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Id</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let gradeTrainer of gradeReminderTrainers">
+              <td>{{gradeTrainer.name}}</td>
+              <td>{{gradeTrainer.email}}</td>
+              <td>{{gradeTrainer.trainerId}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-
-  
+</div>

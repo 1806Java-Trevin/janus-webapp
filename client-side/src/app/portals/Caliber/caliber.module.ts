@@ -166,6 +166,8 @@ import { EmailSchedulerComponent } from './settings/email-scheduler/email-schedu
 
 import 'rxjs/add/operator/do';
 import { CandidateService } from './screening/services/candidate/candidate.service';
+import { ConvertTimePipe } from './pipes/convert-time.pipe';
+import { ConvertIntervalPipe } from './pipes/convert-interval.pipe';
 
 @NgModule({
   imports: [
@@ -203,8 +205,10 @@ import { CandidateService } from './screening/services/candidate/candidate.servi
     BatchByTrainerPipe,
     NoteByTraineeByWeekPipe,
     TierPipe,
+    ConvertTimePipe,
     TrainerPipePipe,
     OrderByPipe,
+    ConvertIntervalPipe,
     GradeByTraineeByAssessmentPipe,
     BatchByTrainerPipe,
     GeneralFeedbackComponent,

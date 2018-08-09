@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTimepickerConfig, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { EmailService } from '../../services/email.service';
 
@@ -19,8 +19,9 @@ export class EmailSchedulerComponent implements OnInit {
   intervalIndex: number;
   emailTypeDisplay: string;
   delay: number;
-  date: any;
-  time: NgbTimeStruct = { hour: 13, minute: 30, second: 0 };
+  d = new Date();
+  date: NgbDateStruct = { year: this.d.getFullYear(), month: this.d.getMonth() + 1, day: this.d.getDate()};
+  time: NgbTimeStruct = { hour: this.d.getHours(), minute: this.d.getMinutes(), second: 0 };
 
   interval: string;
   intervalSeconds = 0;
@@ -34,13 +35,14 @@ export class EmailSchedulerComponent implements OnInit {
     // customize default values of ratings used by this component tree
     config.seconds = false;
     config.spinners = false;
-    this.interval = 'Choose Interval';
+    this.interval = 'Minutes';
     this.emailTypeDisplay = 'Performance Report';
   }
 
   startSchedule() {
     this.calculateSeconds();
     const now = new Date();
+    console.log(this.date);
     const start = new Date(this.date.year, this.date.month - 1, this.date.day, this.time.hour, this.time.minute, 0, 0);
     this.delay = (start.getTime() - now.getTime()) / 1000;
 
@@ -50,19 +52,13 @@ export class EmailSchedulerComponent implements OnInit {
     } else {
       emailType = this.emailService.TRAINER_GRADE_REMINDER;
     }
-    console.log('type: ' + emailType);
-    console.log('seconds: ' + this.intervalSeconds);
-    console.log('delay: ' + this.delay);
+    // console.log(start + 'start');
+    // console.log(this.intervalQuantity + 'iq ');
+    // console.log('type: ' + emailType);
+    // console.log('seconds: ' + this.intervalSeconds);
+    // console.log('delay: ' + this.delay);
 
     this.emailService.startSchedule(emailType, this.intervalSeconds, this.delay).subscribe(data => {
-      // this.emailService.getSchedule(this.emailService.TRAINER_GRADE_REMINDER).subscribe(data2 => {
-      //   this.gradeReminderSchedule = data2;
-      //   console.log(this.gradeReminderSchedule);
-      // });
-      // this.emailService.getSchedule(this.emailService.VP_BATCH_STATUS_REPORT).subscribe(data2 => {
-      //   this.performanceReportSchedule = data2;
-      //   console.log(this.performanceReportSchedule);
-      // });
       console.log(data);
       if (emailType === this.emailService.VP_BATCH_STATUS_REPORT) {
         this.performanceReportSchedule = data;
@@ -83,6 +79,8 @@ export class EmailSchedulerComponent implements OnInit {
   }
 
   calculateSeconds() {
+    console.log('calc');
+    console.log(this.intervalIndex);
     switch (this.intervalIndex) {
       case 0:
         this.intervalSeconds = this.intervalQuantity * 60;
@@ -102,7 +100,19 @@ export class EmailSchedulerComponent implements OnInit {
 
   }
 
+  cancelGrade() {
+    this.intervalSeconds = 0;
+    this.delay = 0;
+    this.emailService.startSchedule(this.emailService.TRAINER_GRADE_REMINDER,
+    this.intervalSeconds, this.delay).subscribe(data => this.gradeReminderSchedule = data);
+  }
 
+  cancelPerformance() {
+    this.intervalSeconds = 0;
+    this.delay = 0;
+    this.emailService.startSchedule(this.emailService.VP_BATCH_STATUS_REPORT,
+    this.intervalSeconds, this.delay).subscribe(data => this.performanceReportSchedule = data);
+  }
   ngOnInit() {
     this.emailService.getTrainers(this.emailService.TRAINER_GRADE_REMINDER).subscribe(data => {
       this.gradeReminderTrainers = data;
@@ -116,6 +126,8 @@ export class EmailSchedulerComponent implements OnInit {
     this.emailService.getSchedule(this.emailService.VP_BATCH_STATUS_REPORT).subscribe(data => {
       this.performanceReportSchedule = data;
     });
+    // this.date = '2018-08-10';
+    this.intervalIndex = 0;
   }
 
 }
