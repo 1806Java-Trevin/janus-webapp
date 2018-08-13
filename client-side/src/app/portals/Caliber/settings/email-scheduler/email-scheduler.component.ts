@@ -18,6 +18,8 @@ export class EmailSchedulerComponent implements OnInit {
 
   intervalIndex: number;
   emailTypeDisplay: string;
+  refreshSchedule1: any;
+  refreshSchedule2: any;
   delay: number;
   d = new Date();
   date: NgbDateStruct = { year: this.d.getFullYear(), month: this.d.getMonth() + 1, day: this.d.getDate()};
@@ -59,15 +61,52 @@ export class EmailSchedulerComponent implements OnInit {
     // console.log('delay: ' + this.delay);
 
     this.emailService.startSchedule(emailType, this.intervalSeconds, this.delay).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       if (emailType === this.emailService.VP_BATCH_STATUS_REPORT) {
         this.performanceReportSchedule = data;
+        if (this.performanceReportSchedule.delay <= 0) {
+          setTimeout( () => {
+          this.emailService.getSchedule(this.emailService.VP_BATCH_STATUS_REPORT).subscribe(data2 => {
+            this.performanceReportSchedule = data2;
+          });
+          } , 2000 );
+        }
+        // this.scheduleRefresh(this.emailService.VP_BATCH_STATUS_REPORT, this.performanceReportSchedule.delay,
+        //    this.performanceReportSchedule.interval);
       } else if (emailType === this.emailService.TRAINER_GRADE_REMINDER) {
         this.gradeReminderSchedule = data;
+        // this.scheduleRefresh(this.emailService.TRAINER_GRADE_REMINDER, this.gradeReminderSchedule.delay,
+        //   this.gradeReminderSchedule.interval);
+        if (this.gradeReminderSchedule.delay <= 0) {
+          setTimeout( () => {
+          this.emailService.getSchedule(this.emailService.TRAINER_GRADE_REMINDER).subscribe(data2 => {
+            this.gradeReminderSchedule = data2;
+          });
+          } , 2000 );
+        }
       }
     });
     this.intervalQuantity = 0;
   }
+
+  scheduleRefresh(interval: number) {
+    // clearInterval(this.refreshSchedule1);
+    // clearInterval(this.refreshSchedule2);
+    this.refreshSchedule1 = setInterval(
+      () => {
+        this.emailService.getSchedule(this.emailService.VP_BATCH_STATUS_REPORT).subscribe(data2 => {
+          this.performanceReportSchedule = data2;
+        });
+      } , interval * 1000);
+
+    this.refreshSchedule2 = setInterval(
+      () => {
+        this.emailService.getSchedule(this.emailService.TRAINER_GRADE_REMINDER).subscribe(data2 => {
+          this.gradeReminderSchedule = data2;
+        });
+      } , interval * 1000);
+  }
+
 
   chooseInterval(item) {
     this.interval = this.intervalOptions[item];
@@ -79,8 +118,8 @@ export class EmailSchedulerComponent implements OnInit {
   }
 
   calculateSeconds() {
-    console.log('calc');
-    console.log(this.intervalIndex);
+    // console.log('calc');
+    // console.log(this.intervalIndex);
     switch (this.intervalIndex) {
       case 0:
         this.intervalSeconds = this.intervalQuantity * 60;
@@ -128,6 +167,7 @@ export class EmailSchedulerComponent implements OnInit {
     });
     // this.date = '2018-08-10';
     this.intervalIndex = 0;
+    this.scheduleRefresh(10);
   }
 
 }
