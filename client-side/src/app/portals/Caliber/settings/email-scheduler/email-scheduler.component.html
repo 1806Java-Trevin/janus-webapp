@@ -7,7 +7,7 @@
       <div>
         <h4>Select Starting Date</h4>
         <div class="input-group">
-          <input class="form-control"  [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" name="Date" />
+          <input class="form-control col-md-4" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" name="Date" />
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
               <img src="assets/Calendar-1.png" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
@@ -41,72 +41,72 @@
       <button class="btn btn-primary" (click)="startSchedule()" type="button">Submit</button>
     </form>
   </div>
-</div>
 
-<div class="row container center">
-  <div class="col align-self-start" *ngIf="gradeReminderSchedule" id="intervalDiv">
-    <h3>Grade Schedule</h3>
-    <li> Time Until Next Email: {{ gradeReminderSchedule.delay | convertTime }}</li>
-    <li> Scheduled Interval: {{gradeReminderSchedule.interval | convertInterval}}</li>
-    <button class="btn btn-primary" (click)="cancelGrade()" type ="button">Cancel Scheduled</button>
+  <div class="row container center">
+    <div class="col align-self-start" *ngIf="gradeReminderSchedule" id="intervalDiv">
+      <h3>Grade Schedule</h3>
+      <li> Time Until Next Email: {{ gradeReminderSchedule.delay | convertTime }}</li>
+      <li> Scheduled Interval: {{gradeReminderSchedule.interval | convertInterval}}</li>
+      <button class="btn btn-primary" (click)="cancelGrade()" type="button">Cancel Scheduled</button>
+    </div>
+
+    <div class="col align-self-end" *ngIf="performanceReportSchedule" id="intervalDiv">
+      <h3> Performance Schedule</h3>
+      <li> Time Until Next Email: {{performanceReportSchedule.delay | convertTime}}</li>
+      <li> Scheduled Interval: {{performanceReportSchedule.interval | convertInterval}}</li>
+      <button class="btn btn-primary" (click)="cancelPerformance()" type="button">Cancel Scheduled</button>
+    </div>
   </div>
 
-  <div class="col align-self-end" *ngIf="performanceReportSchedule" id="intervalDiv">
-    <h3> Performance Schedule</h3>
-    <li> Time Until Next Email: {{performanceReportSchedule.delay | convertTime}}</li>
-    <li> Scheduled Interval: {{performanceReportSchedule.interval | convertInterval}}</li>
-    <button class="btn btn-primary" (click)="cancelPerformance()" type ="button">Cancel Scheduled</button>
-  </div>
-</div>
-
-<br>
-<div class="row">
-  <div class="col">
-    <div class="panelborder">
-      <h3 class="h3">Vice Presidents</h3>
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Id</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let performanceTrainer of performanceReportTrainers">
-              <td>{{performanceTrainer.name}}</td>
-              <td>{{performanceTrainer.email}}</td>
-              <td>{{performanceTrainer.trainerId}}</td>
-            </tr>
-          </tbody>
-        </table>
+  <br>
+  <div class="row">
+    <div class="col">
+      <div class="panelborder">
+        <h3 class="h3">Vice Presidents</h3>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Id</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let performanceTrainer of performanceReportTrainers">
+                <td>{{performanceTrainer.name}}</td>
+                <td>{{performanceTrainer.email}}</td>
+                <td>{{performanceTrainer.trainerId}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <div class="panelborder">
-      <h3 class="h3">Trainer</h3>
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Id</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let gradeTrainer of gradeReminderTrainers">
-              <td>{{gradeTrainer.name}}</td>
-              <td>{{gradeTrainer.email}}</td>
-              <td>{{gradeTrainer.trainerId}}</td>
-            </tr>
-          </tbody>
-        </table>
+  <div class="row">
+    <div class="col">
+      <div class="panelborder">
+        <h3 class="h3">Trainer</h3>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Id</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let gradeTrainer of gradeReminderTrainers">
+                <td>{{gradeTrainer.name}}</td>
+                <td>{{gradeTrainer.email}}</td>
+                <td>{{gradeTrainer.trainerId}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
