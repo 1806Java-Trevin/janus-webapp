@@ -25,6 +25,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { GambitClientModule } from './gambit-client/gambit-client.module';
 import { GambitBatchUtilService } from './services/gambit-batch-util.service';
 
+import { BucketFilterPipe } from './portals/Caliber/settings/screening/buckets/buckets.filter';
+
 // Error Alert
 import { ErrorAlertComponent } from './gambit-client/ui/error-alert/error-alert.component';
 import { GambitInterceptor } from './gambit-client/interceptors/gambit.interceptor';
@@ -78,6 +80,7 @@ const routes: Routes = [
     LoginComponent,
     DashboardComponent,
     JanusComponent,
+    BucketFilterPipe
   ],
   providers: [
     ChuckNorrisService,
