@@ -6,7 +6,8 @@ export class EmailService {
 
   private _TRAINER_GRADE_REMINDER = 'trainerGradeReminder';
   private _VP_BATCH_STATUS_REPORT = 'vpBatchStatusReport';
-  private url = 'http://localhost:9001';
+  private url = 'http://ec2-18-221-11-133.us-east-2.compute.amazonaws.com:9999/caliber-email';
+  // private url = 'http://localhost:9001';
   _trainer: any = {};
 
   httpOptions = {

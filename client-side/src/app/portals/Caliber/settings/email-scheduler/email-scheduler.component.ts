@@ -64,34 +64,38 @@ export class EmailSchedulerComponent implements OnInit {
       // console.log(data);
       if (emailType === this.emailService.VP_BATCH_STATUS_REPORT) {
         this.performanceReportSchedule = data;
-        if (this.performanceReportSchedule.delay <= 0) {
-          setTimeout( () => {
-          this.emailService.getSchedule(this.emailService.VP_BATCH_STATUS_REPORT).subscribe(data2 => {
-            this.performanceReportSchedule = data2;
-          });
-          } , 2000 );
-        }
+        // if (this.performanceReportSchedule.delay <= 0) {
+        //   setTimeout( () => {
+        //   this.emailService.getSchedule(this.emailService.VP_BATCH_STATUS_REPORT).subscribe(data2 => {
+        //     this.performanceReportSchedule = data2;
+        //   });
+        //   } , 2000 );
+        // }
         // this.scheduleRefresh(this.emailService.VP_BATCH_STATUS_REPORT, this.performanceReportSchedule.delay,
         //    this.performanceReportSchedule.interval);
       } else if (emailType === this.emailService.TRAINER_GRADE_REMINDER) {
         this.gradeReminderSchedule = data;
         // this.scheduleRefresh(this.emailService.TRAINER_GRADE_REMINDER, this.gradeReminderSchedule.delay,
         //   this.gradeReminderSchedule.interval);
-        if (this.gradeReminderSchedule.delay <= 0) {
-          setTimeout( () => {
-          this.emailService.getSchedule(this.emailService.TRAINER_GRADE_REMINDER).subscribe(data2 => {
-            this.gradeReminderSchedule = data2;
-          });
-          } , 2000 );
-        }
+        // if (this.gradeReminderSchedule.delay <= 0) {
+        //   setTimeout( () => {
+        //   this.emailService.getSchedule(this.emailService.TRAINER_GRADE_REMINDER).subscribe(data2 => {
+        //     this.gradeReminderSchedule = data2;
+        //   });
+        //   } , 2000 );
+        // }
       }
     });
     this.intervalQuantity = 0;
   }
 
   scheduleRefresh(interval: number) {
-    // clearInterval(this.refreshSchedule1);
-    // clearInterval(this.refreshSchedule2);
+    if ( this.refreshSchedule1) {
+      clearInterval(this.refreshSchedule1);
+    }
+    if ( this.refreshSchedule2) {
+      clearInterval(this.refreshSchedule2);
+    }
     this.refreshSchedule1 = setInterval(
       () => {
         this.emailService.getSchedule(this.emailService.VP_BATCH_STATUS_REPORT).subscribe(data2 => {
